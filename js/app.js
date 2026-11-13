@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   var ART = window.VGI_ART || {}, REV = window.VGI_REV || [], ORIG = window.VGI_ORIG || {};
-  var ONLINE = 'https://www.perplexity.ai/computer/a/videogames-inside-4-prototip-EvlBhysRS9Wu_rZW3iEhcA';
+  var ONLINE = 'issue4/';
   var IA = function (n) { return 'https://archive.org/details/videogames_inside_magazine_' + n; };
   var main = document.getElementById('main');
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -101,7 +101,7 @@
     var d = daysTo();
     var h = '<div class="home-top">' +
       '<div class="cov"><a href="#/last" class="plain"><img src="img/vgi4.jpg" alt="Обложка Videogames INSIDE #4, ноябрь 2026" width="225" height="296"></a>' +
-      '<div class="cov-tab"><a href="#/subscribe">Подписаться</a><a href="' + ONLINE + '" target="_blank" rel="noopener">Читать #4</a></div></div>' +
+      '<div class="cov-tab"><a href="#/subscribe">Подписаться</a><a href="' + ONLINE + '">Читать #4</a></div></div>' +
       '<div><div class="redbar"><span id="featTitle">' + FEAT[0].t + '</span><a href="#/last">#4 · ноябрь 2026</a></div>' +
       '<a class="feat" id="feat" href="' + FEAT[0].href + '"><img id="featImg" src="' + FEAT[0].img + '" alt="" style="object-fit:contain;background:#fff"><span class="feat-cap"><b id="featCap">' + FEAT[0].t + '</b></span>' +
       '<span class="feat-dots">' + FEAT.map(function (f, i) { return '<button type="button" data-i="' + i + '" aria-label="' + esc(f.t) + '"' + (i ? '' : ' class="on"') + '></button>'; }).join('') + '</span></a>' +
@@ -156,9 +156,9 @@
   }
 
   function last() {
-    var b = '<div class="issue"><a class="plain" href="' + ONLINE + '" target="_blank" rel="noopener"><img src="img/vgi4.jpg" alt="Обложка Videogames INSIDE #4"></a><div>' +
+    var b = '<div class="issue"><a class="plain" href="' + ONLINE + '"><img src="img/vgi4.jpg" alt="Обложка Videogames INSIDE #4"></a><div>' +
       '<h2 style="margin-top:0">Videogames INSIDE #4 · ноябрь 2026</h2><p>36 полос. ' + ISSUES[3].lead + '</p>' +
-      '<p><a class="btn" href="' + ONLINE + '" target="_blank" rel="noopener">Читать онлайн</a> <a class="btn g" href="#/subscribe">Подписаться</a></p>' +
+      '<p><a class="btn" href="' + ONLINE + '">Читать онлайн</a> <a class="btn g" href="#/subscribe">Подписаться</a></p>' +
       '<h3>Индекс игр в номере</h3><p>' + ISSUES[3].games + '</p></div></div>' +
       '<h3 class="sq">Содержание</h3><div class="tiles">' +
       tile('#/read/editorial', 'img/retro.jpg', '02 · слово редактора', 'Четвёртый номер') +
@@ -251,7 +251,7 @@
       ['Киоски на вокзалах', 'Ярославский, Ленинградский, Павелецкий, Казанский, Курский вокзалы и станции Голицыно, Одинцово, Тушино, Павшино, Фабричная', ''],
       ['Интернет-магазин ОЗОН', 'www.ozon.ru — доставка по всему миру, любая форма оплаты', '']
     ];
-    var b = '<h3 class="sq">Номер #4, 2026</h3><p>Свежий номер доступен онлайн целиком: 36 полос, все обзоры и источники.</p><p><a class="btn" href="' + ONLINE + '" target="_blank" rel="noopener">Читать #4 онлайн</a> <a class="btn g" href="#/subscribe">Оформить подписку</a></p>' +
+    var b = '<h3 class="sq">Номер #4, 2026</h3><p>Свежий номер доступен онлайн целиком: 36 полос, все обзоры и источники.</p><p><a class="btn" href="' + ONLINE + '">Читать #4 онлайн</a> <a class="btn g" href="#/subscribe">Оформить подписку</a></p>' +
       '<h3 class="sq">Номера 2004 года</h3><p>Сканы #1–#3 хранятся в Internet Archive: ' + ext(IA(1), '#1') + ', ' + ext(IA(2), '#2') + ', ' + ext(IA(3), '#3') + '.</p>' +
       '<p class="note">Ниже — точки продаж из раздела «Где купить» vgi.ru 2004 года. Список сохранён как часть истории журнала: многих магазинов уже нет.</p>' +
       '<table class="tbl"><thead><tr><th>Магазин</th><th>Адрес (Москва, 2004)</th><th>Часы</th></tr></thead><tbody>' + shops.map(function (s) { return '<tr><td><b>' + s[0] + '</b></td><td>' + s[1] + '</td><td>' + s[2] + '</td></tr>'; }).join('') + '</tbody></table>';

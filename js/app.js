@@ -194,11 +194,17 @@
     main.innerHTML = page('Обзоры номера', '<a href="#/last">Свежий номер</a> / Обзоры', b);
   }
 
+  var CREDIT = {
+    'gears-e-day': ['© Microsoft / The Coalition', 'https://store.steampowered.com/app/3010850/'],
+    'modern-warfare-4': ['© Activision / Infinity Ward', 'https://store.steampowered.com/app/4435490/'],
+    'castlevania': ['© KONAMI / Evil Empire, Motion Twin', 'https://store.steampowered.com/app/4231820/']
+  };
   function review(slug) {
     var r = rv(slug); if (!r) return notFound();
     var i = REV.indexOf(r), prev = REV[i - 1], next = REV[i + 1];
     var imgs = r.imgs.slice(1).map(function (s) { return '<img src="' + s + '" alt="" loading="lazy">'; }).join('');
     var b = '<div class="rv-hero"><img src="' + r.img + '" alt="' + esc(r.title) + '"><div class="rv-score' + (r.score == 10 ? ' p' : '') + '">' + r.score + '<small>INSIDE</small></div></div>' +
+      (CREDIT[slug] ? '<p class="rv-credit">Кадр из игры: ' + CREDIT[slug][0] + ', <a href="' + CREDIT[slug][1] + '" target="_blank" rel="noopener">Steam</a></p>' : '') +
       '<div class="art"><span class="kicker">' + (r.score == 10 ? 'Платина · обзор' : 'Обзор') + ' · с. ' + r.page + '</span><h2>' + esc(r.title) + '</h2><p class="dek">' + esc(r.dek) + '</p>' +
       '<div class="byline"><img src="' + r.av + '" alt=""><div><b>Текст: ' + esc(r.author) + '*</b><small>' + esc(r.avc) + '</small></div></div>' +
       '<div class="specs">' + r.specs.join('') + '</div>' + r.body.join('') + imgs +

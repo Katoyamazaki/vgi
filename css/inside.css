@@ -335,3 +335,6 @@ button{font:inherit}
   .tiles.c4{grid-template-columns:1fr 1fr}
 }
 .art div>b+span{margin-left:6px;color:#333}
+
+.rv-credit{font-size:10px;color:#888;margin:3px 0 0;padding-right:90px}
+.rv-credit a{color:#888}

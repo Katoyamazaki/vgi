@@ -11,10 +11,7 @@
 
   /* ---------- безопасное хранилище ---------- */
   var mem = {};
-  var store = {
-    get: function (k) { try { return JSON.parse(localStorage.getItem('vgi_' + k)); } catch (e) { return mem[k] || null; } },
-    set: function (k, v) { mem[k] = v; try { localStorage.setItem('vgi_' + k, JSON.stringify(v)); } catch (e) { } }
-  };
+  var store = { get: function (k) { return mem.hasOwnProperty(k) ? mem[k] : null; }, set: function (k, v) { mem[k] = v; } };
   function toast(t) { var el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast._t); toast._t = setTimeout(function () { el.classList.remove('on'); }, 2600); }
 
   /* ---------- данные ---------- */
@@ -223,7 +220,7 @@
   function nextIssue() {
     var opts = ['Полный обзор GTA VI', 'Итоги года', 'Что купить на Switch 2 к праздникам', 'Monster Hunter Wilds и Xenoblade 3 на Switch 2', 'Ретрообзор: Ocarina of Time 1998', 'Почта INSIDE'];
     var b = '<p class="note"><b>#5 · декабрь 2026.</b> Выход — в середине декабря.</p><h3 class="sq">В следующем номере</h3><ul>' + opts.map(function (o) { return '<li>' + o + '</li>'; }).join('') + '</ul>' +
-      '<h3 class="sq">Что ждёте больше всего?</h3><div class="poll" id="poll"></div><p class="foot-note">Голос сохраняется только в вашем браузере.</p>';
+      '<h3 class="sq">Что ждёте больше всего?</h3><div class="poll" id="poll"></div><p class="foot-note">Голос учитывается до перезагрузки страницы.</p>';
     main.innerHTML = page('В следующем номере', '<a href="#/magazine">Журнал</a> / #5', b);
     var base = [41, 23, 14, 9, 8, 5];
     function draw() {
@@ -271,7 +268,7 @@
     var done = saved ? '<div class="ok" id="subOk">Заявка на подписку принята: <b>' + esc(saved.name) + '</b>, ' + esc(saved.email) + ', ' + saved.period + ' мес. <button type="button" class="btn g" id="subReset" style="margin-left:8px">Изменить</button></div>' : '';
     var b = '<div class="sub-nav"><a href="#/subscribe" data-jump="ed">Подписка через редакцию</a><a href="#/subscribe" data-jump="post">Подписка на почте</a><a href="#/subscribe" data-jump="spec">Особые условия</a><a href="#/subscribe" data-jump="cont">Контакты</a></div>' +
       '<h3 class="sq">Подписка на 2027 год</h3><p>Оформите заявку — номера будут приходить вам каждый месяц.</p>' +
-      '<p class="note">Демонстрационная форма: данные сохраняются только в вашем браузере и никуда не отправляются.</p>' + (done || form) +
+      '<p class="note">Демонстрационная форма: данные никуда не отправляются и хранятся только до перезагрузки страницы.</p>' + (done || form) +
       '<h3 class="sq" id="ed">Подписка через редакцию</h3><p class="note">Условия ниже приведены по vgi.ru 2004 года.</p>' +
       '<table class="tbl"><tbody><tr><td>Когда можно подписаться</td><td>Подписная кампания — постоянно</td></tr><tr><td>Период действия</td><td>3, 6, 9, 12 месяцев</td></tr><tr><td>Условия доставки</td><td>Журнал доставляется курьером в Москве и заказной почтовой бандеролью в регионах. Стоимость редакционной подписки включает в себя расходы на доставку.</td></tr><tr><td>География</td><td>Подписка через редакцию организована для жителей России</td></tr></tbody></table>' +
       '<p><b>Для физических лиц.</b> Оплатите подписку по квитанции в любом коммерческом банке. Отправьте подписной купон и квитанцию об оплате в редакцию по почте.</p>' +
@@ -342,7 +339,7 @@
       '<a class="tile" href="#/com"><span class="t"><small>контакты</small><b>Коммерческие службы</b></span></a>' +
       '<a class="tile" href="#/adm"><span class="t"><small>контакты</small><b>Администрация</b></span></a>' +
       '<a class="tile" href="#/vacancies"><span class="t"><small>контакты</small><b>Вакансии</b></span></a></div>' +
-      '<h3 class="sq">Написать в редакцию</h3><form class="form" id="mailForm" novalidate><label>Тема<select name="topic"><option>Почта INSIDE</option><option>Вопрос по подписке</option><option>Реклама</option><option>Идея для номера</option></select></label><label>Сообщение<textarea name="msg" rows="4" required></textarea></label><div id="mailErr" style="color:#f00;font-size:11px"></div><button class="btn" type="submit">Отправить</button></form><p class="foot-note">Демонстрационная форма: письмо сохраняется только в вашем браузере.</p>';
+      '<h3 class="sq">Написать в редакцию</h3><form class="form" id="mailForm" novalidate><label>Тема<select name="topic"><option>Почта INSIDE</option><option>Вопрос по подписке</option><option>Реклама</option><option>Идея для номера</option></select></label><label>Сообщение<textarea name="msg" rows="4" required></textarea></label><div id="mailErr" style="color:#f00;font-size:11px"></div><button class="btn" type="submit">Отправить</button></form><p class="foot-note">Демонстрационная форма: письмо никуда не отправляется.</p>';
     main.innerHTML = page('Контакты', 'Контакты', b);
     var f = $('#mailForm');
     f.onsubmit = function (e) { e.preventDefault(); if (!f.msg.value.trim()) { $('#mailErr').textContent = 'Напишите сообщение.'; return; } var l = store.get('mail') || []; l.push({ t: f.topic.value, m: f.msg.value.trim() }); store.set('mail', l); f.reset(); $('#mailErr').textContent = ''; toast('Письмо сохранено. Спасибо'); };

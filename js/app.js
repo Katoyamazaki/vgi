@@ -118,10 +118,12 @@
       '<div class="verd"><div class="redbar"><span>Вердикты номера</span><a href="#/verdicts">Шкала INSIDE</a></div>' +
       '<table><tbody>' + scoreRows(REV) + '</tbody></table></div>';
     main.innerHTML = h;
+    FEAT.forEach(function (f) { var im = new Image(); im.src = f.img; });
     var i = 0;
     function show(k) {
-      i = k; var f = FEAT[k];
-      $('#feat').href = f.href; $('#featImg').src = f.img; $('#featImg').style.objectFit = f.fit || 'cover';
+      i = k; var f = FEAT[k], img = $('#featImg');
+      img.style.visibility = 'hidden'; img.onload = function () { img.style.visibility = ''; };
+      $('#feat').href = f.href; img.src = f.img; if (img.complete) img.style.visibility = ''; $('#featImg').style.objectFit = f.fit || 'cover';
       $('#featImg').style.background = f.fit ? '#fff' : '';
       $('#featTitle').textContent = k ? 'Videogames INSIDE #4' : f.t; $('#featCap').textContent = f.t; $('#featTxt').textContent = f.d;
       [].forEach.call(document.querySelectorAll('.feat-dots button'), function (b, j) { b.classList.toggle('on', j === k); });
